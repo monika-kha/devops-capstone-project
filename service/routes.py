@@ -100,6 +100,8 @@ def check_content_type(media_type):
         status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
         f"Content-Type must be {media_type}",
     )
+
+
 ######################################################################
 # READ AN ACCOUNT
 ######################################################################
@@ -115,6 +117,7 @@ def get_accounts(account_id):
         abort(status.HTTP_404_NOT_FOUND, f"Account with id [{account_id}] could not be found.")
 
     return account.serialize(), status.HTTP_200_OK
+
 
 ######################################################################
 # UPDATE AN EXISTING ACCOUNT
@@ -134,6 +137,7 @@ def update_accounts(account_id):
     account.update()
     return account.serialize(), status.HTTP_200_OK
 
+
 ######################################################################
 # DELETE AN ACCOUNT
 ######################################################################
@@ -150,6 +154,7 @@ def delete_accounts(account_id):
 
     return "", status.HTTP_204_NO_CONTENT
 
+
 ######################################################################
 # LIST ALL ACCOUNTS
 ######################################################################
@@ -159,7 +164,9 @@ def list_accounts():
     List all Accounts
     This endpoint will list all Accounts
     """
+
     app.logger.info("Request to list Accounts")
     accounts = Account.all()
     account_list = [account.serialize() for account in accounts]
+
     return jsonify(account_list), status.HTTP_200_OK
